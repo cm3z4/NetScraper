@@ -1,0 +1,36 @@
+{
+  "name": "netscraper",
+  "version": "1.0.0",
+  "description": "A web app that uses Mongoose and Cheerio to scrape news articles to comment on.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cm3z4/NetScraper.git"
+  },
+  "keywords": [
+    "Mongoose",
+    "Cheerio",
+    "Express"
+  ],
+  "author": "cm3z4",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cm3z4/NetScraper/issues"
+  },
+  "homepage": "https://github.com/cm3z4/NetScraper#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^5.4.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.10.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0"
+  }
+}
