@@ -9,6 +9,11 @@ const ArticleSchema = new Schema({
     type: String,
     required: true,
   },
+  // Summary for each article.
+  summary: {
+    type: String,
+    required: true,
+  },
   // Link to each article.
   link: {
     type: String,

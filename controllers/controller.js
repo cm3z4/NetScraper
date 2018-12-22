@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable prefer-template */
 /* eslint-disable prefer-arrow-callback */
 /* eslint-disable no-console */
@@ -10,8 +11,30 @@ const axios = require('axios');
 
 const cheerio = require('cheerio');
 
+// Database configuration.
+const mongoose = require('mongoose');
+
+if (process.env.NODE_ENV === 'production') {
+  mongoose.connect('');
+} else {
+  // Connect to MongoDB.
+  mongoose.connect('mongodb://localhost:27017/net-scraper', { useNewUrlParser: true });
+}
+
+const db = mongoose.connection;
+
+// Check for a connection.
+db.once('open', () => {
+  console.log('Houston, we have a connection!');
+});
+
+// Checking for errors.
+db.on('error', (err) => {
+  console.log('Database error: ', err);
+});
+
 // Require all models.
-const db = require('../models');
+const models = require('../models');
 
 // Redirects the user to the login page from root.
 router.get('/', (req, res) => {
@@ -20,7 +43,7 @@ router.get('/', (req, res) => {
 
 // Where the articles live...
 router.get('/articles', function (req, res) {
-  db.Article.find().sort({ id: -1 })
+  models.Article.find().sort({ id: -1 })
     // .populate('comment')
     .exec(function (err, doc) {
       if (err) {
@@ -33,41 +56,44 @@ router.get('/articles', function (req, res) {
 });
 
 // Where the scraping happens...
-router.get("/scrape", function(req, res) {
-  // First, we grab the body of the html with axios
-  axios.get("http://www.echojs.com/").then(function(response) {
-    // Then, we load that into cheerio and save it to $ for a shorthand selector
-    var $ = cheerio.load(response.data);
+router.get('/scrape', function (req, res) {
+  // Grabbing the site's content with axios.
+  axios.get('https://www.linuxtoday.com/').then(function (response) {
+    // Loading the cannon...
+    const $ = cheerio.load(response.data);
 
-    // Now, we grab every h2 within an article tag, and do the following:
-    $("article h2").each(function(i, element) {
-      // Save an empty result object
-      var result = {};
+    $('.index').each(function (_i, _element) {
+      const result = {};
 
-      // Add the text and href of every link, and save them as properties of the result object
       result.title = $(this)
-        .children("a")
+        .children('a')
         .text();
+      result.summary = $(this)
+        .children('p').text();
       result.link = $(this)
-        .children("a")
-        .attr("href");
+        .children('a')
+        .attr('href');
 
-      // Create a new Article using the `result` object built from scraping
-      db.Article.create(result)
-        .then(function(dbArticle) {
-          // View the added result in the console
+      // Create a new article for each result.
+      models.Article.create(result)
+        .then(function (dbArticle) {
           console.log(dbArticle);
         })
-        .catch(function(err) {
-          // If an error occurred, log it
+        .catch(function (err) {
           console.log(err);
         });
     });
 
-    // Send a message to the client
-    //res.send("Scrape Complete");
+    // Redirect to the articles page.
     res.redirect('./articles');
   });
+});
+
+// Clean the slate!
+router.get('/clear', function (req, res) {
+  db.collection('articles').deleteMany({});
+  console.log('Everything is gone...');
+  res.redirect('/articles');
 });
 
 module.exports = router;
