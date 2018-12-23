@@ -45,12 +45,26 @@ router.get('/', (req, res) => {
 router.get('/articles', function (req, res) {
   models.Article.find().sort({ id: -1 })
     // .populate('comment')
-    .exec(function (err, doc) {
+    .exec(function (err, articalData) {
       if (err) {
         console.log(err);
       } else {
-        const hbsObject = { articles: doc };
+        const hbsObject = { articles: articalData };
         res.render('index', hbsObject);
+      }
+    });
+});
+
+// Where the saved articles live...
+router.get('/saved', function (req, res) {
+  models.Saved.find().sort({ id: -1 })
+    // .populate('comment')
+    .exec(function (err, savedData) {
+      if (err) {
+        console.log(err);
+      } else {
+        const hbsObject = { saved: savedData };
+        res.render('saved', hbsObject);
       }
     });
 });
@@ -67,12 +81,12 @@ router.get('/scrape', function (req, res) {
 
       result.title = $(this)
         .children('a')
-        .text();
+        .text().trim();
       result.summary = $(this)
-        .children('p').text();
+        .children('p').text().trim();
       result.link = $(this)
         .children('a')
-        .attr('href');
+        .attr('href').trim();
 
       // Create a new article for each result.
       models.Article.create(result)
@@ -89,11 +103,57 @@ router.get('/scrape', function (req, res) {
   });
 });
 
-// Clean the slate!
+// A route to remove all scraped articles.
 router.get('/clear', function (req, res) {
   db.collection('articles').deleteMany({});
   console.log('Everything is gone...');
   res.redirect('/articles');
+});
+
+// A route to save articles.
+router.get('/save/:id', function (req, res) {
+  models.Article.findById(req.params.id)
+    // .populate('comment')
+    .exec(function (err, articalData) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(articalData);
+
+        const savingData = {};
+
+        savingData.title = articalData.title;
+        savingData.summary = articalData.summary;
+        savingData.link = articalData.link;
+
+        console.log(savingData);
+        models.Saved.create(savingData)
+          .then(function (confirm) {
+            console.log(confirm);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+        res.redirect('/articles');
+      }
+    });
+});
+
+// A route to remove all saved articles.
+router.get('/clear-all', function (req, res) {
+  db.collection('saveds').deleteMany({});
+  console.log('Everything is gone...');
+  res.redirect('/saved');
+});
+
+// A route to remove one saved article.
+router.get('/delete-one/:id', function (req, res) {
+  models.Saved.findOneAndDelete({ _id: req.params.id })
+    .then((doc) => {
+      console.log(req.params.id);
+      console.log(doc);
+      res.redirect('/saved');
+    });
 });
 
 module.exports = router;

@@ -8,8 +8,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-item nav-link active" href="/articles">Articles<span class="sr-only">(current)</span></a>
-        <a class="nav-item nav-link" href="/saved">Saved</a>
+        <a class="nav-item nav-link" href="/articles">Articles<span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link active" href="/saved">Saved</a>
       </div>
     </div>
   </nav>
@@ -17,16 +17,13 @@
 
 <div class="row">
   <div class="col-12" align="right">
-    <div class="btn-group scrape-clear-btn" role="group" aria-label="Scrape or Clear">
-      <a href="/scrape" class="btn btn-primary" role="button" aria-disabled="true">Scrape</a>
-      <a href="/clear" class="btn btn-outline-primary" role="button" aria-disabled="true">Clear</a>
-    </div>
+    <a href="clear-all" class="btn btn-outline-primary scrape-clear-btn" role="button" aria-disabled="true">Clear</a>
   </div>
 </div>
 
 <section>
-  <!-- Articles.  -->
-  {{#each articles}}
+  <!-- Saved articles.  -->
+  {{#each saved}}
   <div class="row">
     <div class="col-12">
       <div class="card shadow m-3" style="width: 90%;">
@@ -34,8 +31,7 @@
           <h5 class="card-title">{{title}}</h5>
           <p class="card-text">{{summary}}</p>
           <p class="card-text"><a href="{{link}}">Read the full article</a></p>
-          <a href="/save/{{id}}" class="btn btn-primary" role="button" aria-disabled="true">Save</a>
-          <a href="/comment" class="btn btn-outline-primary" role="button" aria-disabled="true">Comment</a>
+          <a href="/delete-one/{{id}}" class="btn btn-outline-danger" role="button" aria-disabled="true">Delete</a>
         </div>
       </div>
     </div>
