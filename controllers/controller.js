@@ -14,12 +14,10 @@ const cheerio = require('cheerio');
 // Database configuration.
 const mongoose = require('mongoose');
 
-if (process.env.NODE_ENV === 'production') {
-  mongoose.connect('');
-} else {
-  // Connect to MongoDB.
-  mongoose.connect('mongodb://localhost:27017/net-scraper', { useNewUrlParser: true });
-}
+
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/net-scraper';
+
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 const db = mongoose.connection;
 
