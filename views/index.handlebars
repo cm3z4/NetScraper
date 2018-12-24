@@ -1,7 +1,7 @@
 <!-- Navbar section. -->
 <section>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">NetScraper</a>
+    <a class="navbar-brand" href="/articles" style="font-family: 'Rock Salt', cursive">NetScraper</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
       aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -15,14 +15,17 @@
   </nav>
 </section>
 
-<div class="row">
-  <div class="col-12" align="right">
-    <div class="btn-group scrape-clear-btn" role="group" aria-label="Scrape or Clear">
-      <a href="/scrape" class="btn btn-primary" role="button" aria-disabled="true">Scrape</a>
-      <a href="/clear" class="btn btn-outline-primary" role="button" aria-disabled="true">Clear</a>
+<!-- Scrape/Clear buttons. -->
+<section>
+  <div class="row">
+    <div class="col-12" align="right">
+      <div class="btn-group scrape-clear-btn" role="group" aria-label="Scrape or Clear">
+        <a href="/scrape" class="btn btn-primary" role="button" aria-disabled="true">Scrape</a>
+        <a href="/clear" class="btn btn-outline-primary" role="button" aria-disabled="true">Clear</a>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
 <section>
   <!-- Articles.  -->
@@ -33,8 +36,8 @@
         <div class="card-body">
           <h5 class="card-title">{{title}}</h5>
           <p class="card-text">{{summary}}</p>
-          <p class="card-text"><a href="{{link}}">Read the full article</a></p>
-          <a href="/save/{{id}}" class="btn btn-primary" role="button" aria-disabled="true">Save</a>
+          <p class="card-text"><a href="{{link}}" target="_blank">Read the full article</a></p>
+          <a href="/save/{{id}}" class="btn btn-primary" role="button" aria-disabled="true">Save article</a>
         </div>
       </div>
     </div>

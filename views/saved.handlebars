@@ -1,7 +1,7 @@
 <!-- Navbar section. -->
 <section>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">NetScraper</a>
+    <a class="navbar-brand" href="/articles" style="font-family: 'Rock Salt', cursive">NetScraper</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
       aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -15,13 +15,17 @@
   </nav>
 </section>
 
-<div class="row">
-  <div class="col-12" align="right">
-    <a href="clear-all" class="btn btn-outline-primary scrape-clear-btn" role="button" aria-disabled="true">Clear</a>
+<!-- Clear all saved articles -->
+<section>
+  <div class="row">
+    <div class="col-12" align="right">
+      <a href="clear-all" class="btn btn-outline-primary scrape-clear-btn" role="button" aria-disabled="true">Clear</a>
+    </div>
   </div>
-</div>
+</section>
 
 <section>
+
   <!-- Saved articles.  -->
   {{#each saved}}
   <div class="row">
@@ -31,7 +35,7 @@
           <a href="/delete-one/{{id}}" class="btn btn-outline-danger" id="delete-btn" role="button" aria-disabled="true">X</a>
           <h5 class="card-title">{{title}}</h5>
           <p class="card-text">{{summary}}</p>
-          <p class="card-text"><a href="{{link}}">Read the full article</a></p>
+          <p class="card-text"><a href="{{link}}" target="_blank">Read the full article</a></p>
           <hr>
           <p class="card-text">Note: {{note}}</p>
           <hr>
