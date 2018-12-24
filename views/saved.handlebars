@@ -28,10 +28,23 @@
     <div class="col-12">
       <div class="card shadow m-3" style="width: 90%;">
         <div class="card-body">
+          <a href="/delete-one/{{id}}" class="btn btn-outline-danger" id="delete-btn" role="button" aria-disabled="true">X</a>
           <h5 class="card-title">{{title}}</h5>
           <p class="card-text">{{summary}}</p>
           <p class="card-text"><a href="{{link}}">Read the full article</a></p>
-          <a href="/delete-one/{{id}}" class="btn btn-outline-danger" role="button" aria-disabled="true">Delete</a>
+          <hr>
+          <p class="card-text">Note: {{note}}</p>
+          <hr>
+          <form action='note/{{id}}' method='post'>
+            <div class="form-group">
+              <label for="noteFormControlInput">Add a note</label>
+              <input id="noteInput" name="noteId" type="text" class="form-control">
+              <br>
+              <button type="submit" class="btn btn-outline-primary" id="noteBtn">Save note</button>
+              <a href="delete-note/{{id}}" class="btn btn-outline-danger" role="button" aria-disabled="true">Delete
+                note</a>
+            </div>
+          </form>
         </div>
       </div>
     </div>

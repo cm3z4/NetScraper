@@ -19,7 +19,11 @@ const SavedSchema = new Schema({
     type: String,
     required: true,
   },
-
+  // Note to each saved article.
+  note: {
+    type: String,
+    required: false,
+  },
 });
 
 const Saved = mongoose.model('Saved', SavedSchema);

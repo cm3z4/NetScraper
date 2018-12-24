@@ -148,6 +148,26 @@ router.get('/clear-all', function (req, res) {
 router.get('/delete-one/:id', function (req, res) {
   models.Saved.findOneAndDelete({ _id: req.params.id })
     .then((doc) => {
+      console.log(doc);
+      res.redirect('/saved');
+    });
+});
+
+// A route to add a note to an article.
+router.post('/note/:id', function (req, res) {
+  console.log(req.body.noteId);
+  models.Saved.findOneAndUpdate({ _id: req.params.id }, { note: req.body.noteId })
+    .then((doc) => {
+      console.log(req.params.id);
+      console.log(doc);
+      res.redirect('/saved');
+    });
+});
+
+// A route to delete a note to an article.
+router.get('/delete-note/:id', function (req, res) {
+  models.Saved.findOneAndUpdate({ _id: req.params.id }, { note: '' })
+    .then((doc) => {
       console.log(req.params.id);
       console.log(doc);
       res.redirect('/saved');
