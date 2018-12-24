@@ -1,17 +1,17 @@
 # NetScraper
 
 #### Description
-NetScraper is a scraping application. It scrapes news articels and allows the user to save and add a note to an article..
+NetScraper is a scraping application. It scrapes news articels and allows the user to save and add a note to an article.
 
-#### This project was built with the following technologies: 
-Node
-MySQL
-Express
-Handlebars
-Mongoose
-Cheerio
-Morgan
-Axios
+#### This application was built with the following technologies: 
+Node,
+MySQL,
+Express,
+Handlebars,
+Mongoose,
+Cheerio,
+Morgan,
+and Axios.
 
 #### Screenshots
 ![](./public/img/screenshot1.png)
